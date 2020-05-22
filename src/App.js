@@ -1,25 +1,58 @@
 import React from 'react';
-import logo from './logo.svg';
+
+//components
+import Authors from './pages/booksApp/index.jsx';
+import Books from './pages/booksApp/books.jsx';
+
+//bootstrap css
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+//Material UI Components
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+//styles
 import './App.css';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
+
 function App() {
+
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Typography className={classes.root}>
+        <Link className="navAppItem" to="/book">
+          Books
+        </Link>
+        <Link className="navAppItem" to="/">
+          Authors
+        </Link>
+      </Typography>
+
+      <Switch>
+        <Route path='/book'>
+          <Books />
+        </Route>
+        <Route exact path='/'>
+          <Authors />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
